@@ -30,4 +30,9 @@ In order to search in example.csv file all student named "Benjamin" and course "
 * Provide delete specific student implementation.
 * Search student with some criteria provided by command line arguments.
   * {name, type, gender}
-* The result is sorted with the sort criteria provided by user in argument *order*.
+* The result is sorted with the sort criteria provided by user in argument *orderBy*.
+  * Options to order {Name, Type, Gender, LastUpdate} (Name order as default).
+
+### Order Example
+In order to search all student in High level order by timestamp:
+`java -jar studentSolution.jar example.csv type=Kinder orderBy=LastUpdate`

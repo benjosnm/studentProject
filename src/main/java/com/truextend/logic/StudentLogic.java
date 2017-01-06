@@ -15,6 +15,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -100,6 +101,8 @@ public class StudentLogic implements StudentLogicInterface {
             passCriteria = criteria.passCriteria(passCriteria, criteriaEntry.getValue());
         }
         
+        passCriteria = this.orderListByCriteria(byCriterias, passCriteria);
+        
         return passCriteria;
     }
     
@@ -120,6 +123,33 @@ public class StudentLogic implements StudentLogicInterface {
         }
 
         return criteriaTypes;
+    }
+
+    private List<Student> orderListByCriteria(List<String> byCriterias, List<Student> toSortList) {
+        String orderBy = "";
+        for (String order : byCriterias) {
+            if(order.contains("orderBy=")){
+                orderBy = order;
+                break;
+            }
+        }
+        
+        switch (orderBy) {
+                case "orderBy=Type":
+                    toSortList.sort(Comparator.comparing(s -> s.getType()));
+                    break;
+                case "orderBy=Gender":
+                    toSortList.sort(Comparator.comparing(s -> s.getGender()));
+                    break;
+                case "orderBy=LastUpdate":
+                    toSortList.sort(Comparator.comparing(s -> s.getLastupdate()));
+                    break;
+                default:
+                    toSortList.sort(Comparator.comparing(s -> s.getName()));
+                    break;
+            }
+        
+        return toSortList;
     }
 
 }
